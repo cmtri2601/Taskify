@@ -12,19 +12,37 @@ interface Props {
 }
 
 const SingleTodo:React.FC<Props> = ({todo, todos, setTodos}: Props) => {
+  const handleEdit = (id:number) => {
+    
+  }
+
+  const handleDelete = (id:number)  => {
+    setTodos([...todos.filter(todo => todo.id !== id)])
+  }  
+
+  const handleDone = (id:number) => {
+    setTodos([...todos.map(todo => 
+      todo.id === id ? {...todo, isDone : !todo.isDone} : todo)
+    ])
+  }
   return (
     <form className={styles.single}>
-      <span className={styles['single--text']}>
-        {todo.todo}
-      </span>
+      {
+        todo.isDone ? (<s className={styles['single--text']}>
+          {todo.todo}
+        </s> ) : (<span className={styles['single--text']}>
+          {todo.todo}
+        </span> )
+      }
+      
       <div>
-        <span className={styles.icon}>
+        <span className={styles.icon} onClick={()=> handleEdit(todo.id)}>
             <AiFillEdit />
         </span>
-        <span className={styles.icon}>
+        <span className={styles.icon} onClick={()=>handleDelete(todo.id)}>
             <AiFillDelete />
         </span>
-        <span className={styles.icon}>
+        <span className={styles.icon} onClick={()=>handleDone(todo.id)}>
             <MdDone />
         </span>
       </div>
