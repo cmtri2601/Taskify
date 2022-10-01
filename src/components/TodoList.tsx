@@ -1,22 +1,17 @@
-import React from 'react'
-import { Todo } from '../model'
+import { useContext } from 'react'
+import {TodoListContext, TodoListContextInterface } from '../context/TodoListContext';
 import SingleTodo from './SingleTodo';
 import styles from './TodoList.module.css'
 
-interface Props {
-    todos: Todo[];
-    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-}
+const TodoList= () => {
+  const todoState = useContext<TodoListContextInterface | null>(TodoListContext)?.todoState;
 
-const TodoList:React.FC<Props> = ({todos, setTodos}: Props) => {
   return (
     <div className={styles.todos}>
-      {todos.map(todo => (
+      {todoState?.map(todo => (
         <SingleTodo 
             todo={todo} 
             key={todo.id}
-            todos={todos}
-            setTodos={setTodos}
         />
       ))}
     </div>

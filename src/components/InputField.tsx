@@ -1,18 +1,19 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import styles from './InputField.module.css'
+import {TodoListContext, TodoListContextInterface} from "../context/TodoListContext"
 
-interface Props {
-    todo: string;
-    setTodo: React.Dispatch<React.SetStateAction<string>>;
-    handleAdd: (e: React.FormEvent) => void
-}
+const InputField = () => {
 
-const InputField: React.FC<Props> = ({todo, setTodo, handleAdd}: Props) => {
-  const inputRef = useRef<HTMLInputElement>(null)
+  const todoDispatch = useContext<TodoListContextInterface | null>(TodoListContext)?.todoDispatch;
+  const [todo, setTodo] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <form className={styles.input} onSubmit={(e) => {
-        handleAdd(e);
-        inputRef.current?.blur()
+      e.preventDefault();
+
+      todoDispatch?.({type: 'ADD', payload: {todo}})
+      inputRef.current?.blur()
     }}>
         <input
             ref={inputRef} 
