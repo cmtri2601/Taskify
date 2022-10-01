@@ -12,9 +12,12 @@ const InputField = () => {
     <form className={styles.input} onSubmit={(e) => {
       e.preventDefault();
 
-      todoDispatch?.({type: 'ADD', payload: {todo}})
-      setTodo('');
-      inputRef.current?.blur()
+      if (todo) {
+        todoDispatch?.({type: 'ADD', payload: {todo}})
+        setTodo('');
+        inputRef.current?.blur()
+      }
+      
     }}>
         <input
             ref={inputRef} 
