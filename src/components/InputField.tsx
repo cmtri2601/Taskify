@@ -5,7 +5,7 @@ import {TodoListContext, TodoListContextInterface} from "../context/TodoListCont
 const InputField = () => {
 
   const todoDispatch = useContext<TodoListContextInterface | null>(TodoListContext)?.todoDispatch;
-  const [todo, setTodo] = useState<string>("");
+  const [todo, setTodo] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -13,6 +13,7 @@ const InputField = () => {
       e.preventDefault();
 
       todoDispatch?.({type: 'ADD', payload: {todo}})
+      setTodo('');
       inputRef.current?.blur()
     }}>
         <input

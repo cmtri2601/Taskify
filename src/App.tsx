@@ -8,6 +8,7 @@ const App: React.FC = () => {
   return (
     <div className="App"> 
       <TodoListContextProvider>
+        <span className="heading">Taskify</span>
         <InputField />
         <TodoList />
       </TodoListContextProvider>
